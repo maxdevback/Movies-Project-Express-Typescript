@@ -1,17 +1,18 @@
-import express from "express"
+import express from "express";
+import { configFromEnv } from "./config";
 
-const App = express()
+import routes from "./routes";
 
-
-App.all("*", (req, res) => {
-  res.send("Hello world")
-})
+const App = express();
+App.use(express.json());
+App.use(routes);
 
 const start = async () => {
-  const port = 3000
-  App.listen(port,() => {
-    console.log(`App has been started at ${port} port`)
-  })
-}
+  console.log(configFromEnv);
+  const port = configFromEnv.PORT || 3000;
+  App.listen(port, () => {
+    console.log(`App has been started at ${port} port`);
+  });
+};
 
-start()
+start();
