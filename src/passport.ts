@@ -7,7 +7,7 @@ import { configFromEnv } from "./config";
 export const passportInit = () => {
   App.use(
     session({
-      secret: "testSecret",
+      secret: configFromEnv.COOKIE_SECRET,
       resave: false,
       saveUninitialized: true,
     })

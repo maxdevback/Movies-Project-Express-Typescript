@@ -42,14 +42,18 @@ class ViewsController {
     }
   }
   async favorites(req: Request, res: Response) {
-    if (!req.user) return res.redirect("/");
-    const movies = await UserFavoritesDB.getById(req.user.id);
+    try {
+      if (!req.user) return res.redirect("/");
+      const movies = await UserFavoritesDB.getById(req.user.id);
 
-    res.render("index", {
-      parsedData: movies,
-      user: req.user,
-      inFavorite: true,
-    });
+      res.render("index", {
+        parsedData: movies,
+        user: req.user,
+        inFavorite: true,
+      });
+    } catch (err) {
+      res.send(err);
+    }
   }
 }
 
