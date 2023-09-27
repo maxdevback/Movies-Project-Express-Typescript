@@ -30,7 +30,6 @@ class userFavoritesDB {
     const moviesWithoutThis = userFavorites.favorites.filter(
       (movieFromDB) => movieFromDB.id != movieId
     );
-    console.log(userFavorites.favorites);
     userFavorites.favorites = moviesWithoutThis;
     return await userFavorites.save();
   }
