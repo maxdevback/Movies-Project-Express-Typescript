@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/App.ts"
+    "dev": "nodemon src/App.ts",
+    "build": "tsc && copyfiles -u 1 src/**/*.ejs dist/ && copyfiles -u 1 src/**/*.css dist/",
+    "start": "node dist/App.js"
   },
   "author": "",
   "license": "MIT",
@@ -17,6 +19,7 @@
     "@types/passport": "^1.0.13",
     "@types/passport-github2": "^1.2.6",
     "@types/request": "^2.48.8",
+    "copyfiles": "^2.4.1",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
