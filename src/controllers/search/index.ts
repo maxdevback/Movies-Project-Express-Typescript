@@ -12,7 +12,7 @@ class SearchController {
         (err, resFromReq, data) => {
           if (err) throw err;
           const parsedData = JSON.parse(data);
-          if (cat === "person") {
+          if (cat === "person" && parsedData.results[0]?.known_for) {
             parsedData.results = parsedData.results[0].known_for;
           }
           res.render("index", {

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/App.ts",
     "build": "tsc && copyfiles -u 1 src/**/*.ejs dist/ && copyfiles -u 1 src/**/*.css dist/",
-    "start": "node dist/App.js"
+    "start": "forever dist/App.js"
   },
   "author": "",
   "license": "MIT",
