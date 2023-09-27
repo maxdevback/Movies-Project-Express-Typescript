@@ -5,6 +5,7 @@ export interface IConfigFromEnv {
   GITHUB_CLIENT: string;
   GITHUB_SECRET: string;
   MONGODB_LINK: string;
+  COOKIE_SECRET: string;
 }
 
 declare global {
