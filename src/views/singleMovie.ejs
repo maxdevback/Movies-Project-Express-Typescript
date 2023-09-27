@@ -36,6 +36,24 @@
       >
         More Details
       </button>
+      <%if(canAddToFavorite) { %>
+      <form method="POST"  action="<%- `/favorite/${parsedData.id}`%>">
+        <button
+        type="submit"
+        class="btn btn-primary btn-lg"
+      >
+        Add to favorite
+      </button>
+      <%} else { %>
+        <form method="POST"  action="<%- `/favorite/${parsedData.id}`%>">
+          <button
+          type="submit"
+          class="btn btn-primary btn-lg"
+        >
+          Delete from favorite
+        </button>
+      <% } %>
+      </form>
     </div>
 
     <!-- Modal -->
@@ -48,9 +66,10 @@
           </div>
           <div class="modal-body">
             <a href="https://www.imdb.com/title/<%= parsedData.imdb_id %>" target="_blank">IMDB link</a>
-            <p><%= parsedData.budget %></p>
-            <p><%= parsedData.revenue %></p>
-            <p><%= parsedData.release_date%></p>
+            <p>Budget: <%= parsedData.budget %></p>
+            <p>Revenue: <%= parsedData.revenue %></p>
+            <p>Release date: <%= parsedData.release_date%></p>
+            <p>Production companies: </p>
             <ul>
               <% for(let i=0; i<parsedData.production_companies.length; i++) {%>
                 <li><%= parsedData.production_companies[i].name %></li>

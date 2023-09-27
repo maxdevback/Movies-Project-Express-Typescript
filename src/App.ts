@@ -1,27 +1,16 @@
 import express from "express";
 import { configFromEnv } from "./config";
-import morgan from "morgan";
-import cookie from "cookie-parser";
-import path from "path";
+import { connect } from "mongoose";
 
-import routes from "./routes";
+import { passportInit } from "./passport";
+import { AppInit } from "./AppConfig";
 
-const App = express();
-App.set("views", path.join(__dirname, "views"));
-App.set("view engine", "ejs");
-App.use(cookie());
-App.use(express.static(path.join(__dirname, "public")));
-App.use(express.json());
-App.use(express.urlencoded({ extended: false }));
-if (configFromEnv.STAGE === "dev") {
-  App.use(morgan("dev"));
-} else {
-  App.use(morgan("common"));
-}
-App.use(routes);
+export const App = express();
+passportInit();
+AppInit();
 
 const start = async () => {
-  console.log(configFromEnv);
+  await connect(configFromEnv.MONGODB_LINK);
   const port = configFromEnv.PORT || 3000;
   App.listen(port, () => {
     console.log(`App has been started at ${port} port`);

@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import { IConfigFromEnv } from "./types";
 
-const envAmount = 3;
+const envAmount = 6;
 
 export const configFromEnv = dotenv.parse(
   fs.readFileSync(path.join(__dirname, "..", ".env"))

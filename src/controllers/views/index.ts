@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import request from "request";
 import { configFromEnv } from "../../config";
+import UserFavoritesDB from "../../models/db/logic";
 
 class ViewsController {
   async mainPage(req: Request, res: Response) {
@@ -12,6 +13,8 @@ class ViewsController {
           const parsedData = JSON.parse(data);
           res.render("index", {
             parsedData: parsedData.results,
+            user: req.user,
+            inFavorite: false,
           });
         }
       );
@@ -27,15 +30,26 @@ class ViewsController {
         (err, resFromReq, data) => {
           if (err) throw err;
           const parsedData = JSON.parse(data);
-          console.log(parsedData);
           res.render("singleMovie", {
             parsedData,
+            user: req.user,
+            canAddToFavorite: true,
           });
         }
       );
     } catch (err) {
       res.send(err);
     }
+  }
+  async favorites(req: Request, res: Response) {
+    if (!req.user) return res.redirect("/");
+    const movies = await UserFavoritesDB.getById(req.user.id);
+
+    res.render("index", {
+      parsedData: movies,
+      user: req.user,
+      inFavorite: true,
+    });
   }
 }
 

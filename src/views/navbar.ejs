@@ -4,8 +4,19 @@
       <a class="navbar-brand" href="/">The New IMDB</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="/login">Login with GitHub</a></li>
+      <% if(user){ %>
+      <li>
+        <a href="<%- user.profileUrl %>"
+          ><img height="20px" src="<%- user.photos[0].value %>"
+        /></a>
+      </li>
+      <li>
+        <a href="<%- user.profileUrl %>"><span><%- user.username %></span></a>
+      </li>
       <li><a href="/favorites">Favorites</a></li>
+      <% } else{ %>
+      <li><a href="/login">Login with GitHub</a></li>
+      <% } %>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li>
